@@ -65,11 +65,19 @@ class _EmailAuthScreenState extends State<EmailAuthScreen> {
                 ],
               ),
             ),
-            Divider(height: 40, color: Colors.grey[300]
+            Divider(height: 35, color: Colors.grey[300]),
+            CustomTextButton(
+              text: "Continue",
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => LoginwithEmailScreen(),
+                  ),
+                );
+              },
+              isDisabled: emailText.isEmpty,
             ),
-            CustomTextButton(text: "Continue", onPressed: (){
-              Navigator.push(context, MaterialPageRoute(builder: (context)=> LoginwithEmailScreen()));
-            }, isDisabled: emailText.isEmpty)
           ],
         ),
       ),
