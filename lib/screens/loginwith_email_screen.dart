@@ -26,45 +26,49 @@ class _LoginwithEmailScreenState extends State<LoginwithEmailScreen> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Padding(
-                  padding: EdgeInsets.only(left: 15, bottom: 20),
-                  child: Image.asset("assets/login_icon.png", width: 60),
-                ),
-                Text(
-                  "Login with your email",
-                  style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
-                ),
-                SizedBox(height: 20),
-                Text(
-                  "login with your password to dearprogrammer@gmail.com. or get a login link via email",
-                  style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
-                ),
-                SizedBox(height: 30),
-                CustomTextField(
-                  controller: passController,
-                  labelText: "Password",
-                  noIcon: false,
-                  onChanged: (Value) {
-                    setState(() {
-                      passText = Value;
-                    });
-                  },
-                ),
-                SizedBox(height: 20),
-                GestureDetector(
-                  onTap: () {},
-                  child: Text(
-                    "I forgot my password",
-                    style: TextStyle(
-                      color: Color(0xFFE21A70),
-                      fontWeight: FontWeight.w700,
+            Expanded(
+              child: SingleChildScrollView(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Padding(
+                      padding: EdgeInsets.only(left: 15, bottom: 20),
+                      child: Image.asset("assets/login_icon.png", width: 60),
                     ),
-                  ),
+                    Text(
+                      "Login with your email",
+                      style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+                    ),
+                    SizedBox(height: 20),
+                    Text(
+                      "login with your password to dearprogrammer@gmail.com. or get a login link via email",
+                      style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
+                    ),
+                    SizedBox(height: 30),
+                    CustomTextField(
+                      controller: passController,
+                      labelText: "Password",
+                      noIcon: false,
+                      onChanged: (Value) {
+                        setState(() {
+                          passText = Value;
+                        });
+                      },
+                    ),
+                    SizedBox(height: 20),
+                    GestureDetector(
+                      onTap: () {},
+                      child: Text(
+                        "I forgot my password",
+                        style: TextStyle(
+                          color: Color(0xFFE21A70),
+                          fontWeight: FontWeight.w700,
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
-              ],
+              ),
             ),
             Column(
               children: [
@@ -113,3 +117,4 @@ class _LoginwithEmailScreenState extends State<LoginwithEmailScreen> {
     );
   }
 }
+ 
