@@ -131,6 +131,5 @@ class _FillAccountInfoScreenState extends State<FillAccountInfoScreen> {
         ),
       ),
     );
-    ;
   }
 }
