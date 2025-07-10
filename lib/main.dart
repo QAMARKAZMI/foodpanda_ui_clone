@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:foodpanda_ui_clone/screens/home_screen.dart';
 import 'package:foodpanda_ui_clone/screens/splash_screen.dart';
 
-void main(){
+void main() {
   runApp(MyApp());
 }
 
@@ -13,7 +14,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: "FoodPanda UI Clone",
-      home: SplashScreen(),
+      home: HomeScreen(),
     );
   }
 }
