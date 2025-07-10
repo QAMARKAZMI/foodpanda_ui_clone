@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
+import 'package:foodpanda_ui_clone/screens/shop_screen.dart';
 import 'package:foodpanda_ui_clone/widgets/my_drawer.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -39,6 +40,17 @@ class _HomeScreenState extends State<HomeScreen> {
 
   final List<Map<String, dynamic>> restaurants = [
     {
+      'name': 'Subway',
+      'rating': '4.0',
+      'reviews': '50+',
+      'imagePath': 'assets/subway.jpg',
+      'minOrder': 'PKR 199 minimum',
+      'cuisine': 'Pakistani',
+      'time': '5-20 min',
+      'discount': '15% off',
+      'deliveryType': 'Free Delivery',
+    },
+    {
       'name': 'MMK-S FOODS',
       'rating': '4.0',
       'reviews': '50+',
@@ -46,7 +58,7 @@ class _HomeScreenState extends State<HomeScreen> {
       'minOrder': 'PKR 199 minimum',
       'cuisine': 'Pakistani',
       'time': '5-20 min',
-      'discount': '5% off',
+      'discount': '',
       'deliveryType': 'Free Delivery',
     },
     {
@@ -539,37 +551,70 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   Widget _buildRestauratnItem(Map<String, dynamic> restaurants) {
-    return Container(
-      width: 260,
-      margin: EdgeInsets.only(right: 8),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(8),
-        color: Colors.white,
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Stack(
-            children: [
-              ClipRRect(
-                borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(8),
-                  topRight: Radius.circular(8),
+    return InkWell(
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (c) => ShopScreen()),
+        );
+      },
+      child: Container(
+        width: 260,
+        margin: EdgeInsets.only(right: 8),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(8),
+          color: Colors.white,
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Stack(
+              children: [
+                ClipRRect(
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(8),
+                    topRight: Radius.circular(8),
+                  ),
+                  child: Image.asset(
+                    restaurants['imagePath'],
+                    height: 140,
+                    width: double.infinity,
+                    fit: BoxFit.cover,
+                  ),
                 ),
-                child: Image.asset(
-                  restaurants['imagePath'],
-                  height: 140,
-                  width: double.infinity,
-                  fit: BoxFit.cover,
-                ),
-              ),
-              Padding(
-                padding: EdgeInsets.only(top: 8),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    if (restaurants['discount'].isNotEmpty)
+                Padding(
+                  padding: EdgeInsets.only(top: 8),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      if (restaurants['discount'].isNotEmpty)
+                        Container(
+                          padding: EdgeInsets.symmetric(
+                            horizontal: 8,
+                            vertical: 4,
+                          ),
+                          decoration: BoxDecoration(
+                            color: Color(0xFFFF2BB5),
+                            borderRadius: BorderRadius.only(
+                              topRight: Radius.circular(8),
+                              bottomRight: Radius.circular(8),
+                            ),
+                          ),
+                          child: Text(
+                            restaurants['discount'],
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 12,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ),
+
                       Container(
+                        margin:
+                            restaurants['discount'].isNotEmpty
+                                ? EdgeInsets.only(top: 5)
+                                : EdgeInsets.only(),
                         padding: EdgeInsets.symmetric(
                           horizontal: 8,
                           vertical: 4,
@@ -582,7 +627,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           ),
                         ),
                         child: Text(
-                          restaurants['discount'],
+                          restaurants['deliveryType'],
                           style: TextStyle(
                             color: Colors.white,
                             fontSize: 12,
@@ -590,111 +635,89 @@ class _HomeScreenState extends State<HomeScreen> {
                           ),
                         ),
                       ),
-
-                    Container(
-                      margin:
-                          restaurants['discount'].isNotEmpty
-                              ? EdgeInsets.only(top: 5)
-                              : EdgeInsets.only(),
-                      padding: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-                      decoration: BoxDecoration(
-                        color: Color(0xFFFF2BB5),
-                        borderRadius: BorderRadius.only(
-                          topRight: Radius.circular(8),
-                          bottomRight: Radius.circular(8),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+            Padding(
+              padding: EdgeInsets.all(8),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        restaurants['name'],
+                        style: TextStyle(fontWeight: FontWeight.bold),
+                      ),
+                      Row(
+                        children: [
+                          Icon(Icons.star, color: Colors.orange, size: 18),
+                          SizedBox(width: 4),
+                          Text(
+                            restaurants['rating'],
+                            style: TextStyle(
+                              color: Colors.black,
+                              fontWeight: FontWeight.w500,
+                              fontSize: 12,
+                            ),
+                          ),
+                          SizedBox(width: 2),
+                          Text(
+                            restaurants['reviews'],
+                            style: TextStyle(
+                              color: Colors.black.withOpacity(0.6),
+                              fontSize: 12,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                  SizedBox(height: 8),
+                  Text(
+                    '${restaurants['minOrder']}-${restaurants['cuisine']}',
+                    style: TextStyle(
+                      color: Colors.black.withOpacity(0.6),
+                      fontSize: 12,
+                    ),
+                  ),
+                  SizedBox(height: 4),
+                  Row(
+                    children: [
+                      Icon(Icons.access_time, color: Colors.black, size: 16),
+                      SizedBox(width: 4),
+                      Text(
+                        restaurants['time'],
+                        style: TextStyle(
+                          color: Colors.black.withOpacity(0.6),
+                          fontSize: 12,
                         ),
                       ),
-                      child: Text(
+                      SizedBox(width: 15),
+                      Icon(
+                        Icons.delivery_dining_rounded,
+                        color: Color(0xFFFF2B85),
+                        size: 16,
+                      ),
+                      SizedBox(width: 5),
+                      Text(
                         restaurants['deliveryType'],
                         style: TextStyle(
-                          color: Colors.white,
+                          color: Color(0xFFFF2B85),
                           fontSize: 12,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
-                    ),
-                  ],
-                ),
-              ),
-            ],
-          ),
-          Padding(
-            padding: EdgeInsets.all(8),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      restaurants['name'],
-                      style: TextStyle(fontWeight: FontWeight.bold),
-                    ),
-                    Row(
-                      children: [
-                        Icon(Icons.star, color: Colors.orange, size: 18),
-                        SizedBox(width: 4),
-                        Text(
-                          restaurants['rating'],
-                          style: TextStyle(
-                            color: Colors.black,
-                            fontWeight: FontWeight.w500,
-                            fontSize: 12,
-                          ),
-                        ),
-                        SizedBox(width: 2),
-                        Text(
-                          restaurants['reviews'],
-                          style: TextStyle(
-                            color: Colors.black.withOpacity(0.6),
-                            fontSize: 12,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-                SizedBox(height: 8),
-                Text(
-                  '${restaurants['minOrder']}-${restaurants['cuisine']}',
-                  style: TextStyle(
-                    color: Colors.black.withOpacity(0.6),
-                    fontSize: 12,
+                    ],
                   ),
-                ),
-                SizedBox(height: 4),
-                Row(
-                  children: [
-                    Icon(Icons.access_time, color: Colors.black, size: 16),
-                    SizedBox(width: 4),
-                    Text(
-                      restaurants['time'],
-                      style: TextStyle(
-                        color: Colors.black.withOpacity(0.6),
-                        fontSize: 12,
-                      ),
-                    ),
-                    SizedBox(width: 15),
-                    Icon(
-                      Icons.delivery_dining_rounded,
-                      color: Color(0xFFFF2B85),
-                      size: 16,
-                    ),
-                    SizedBox(width: 5),
-                    Text(
-                      restaurants['deliveryType'],
-                      style: TextStyle(
-                        color: Color(0xFFFF2B85),
-                        fontSize: 12,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ],
-                ),
-              ],
+                ],
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
